@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kessoku Band Player</title>
+    <title>Kessoku Band Reproductor</title>
     <style>
-        /* === IMPORTACIÓN DE FUENTE JAPONESA ORIGINAL === */
+        /* === IMPORTACIÓN DE FUENTE JAPONESA === */
         @font-face {
             font-family: 'NaishoMoji';
-            /* Corregido exactamente al nombre de tu archivo sin guion medio */
             src: local('Naisho Moji'), 
                  local('NaishoMojiRegular'),
                  url('NaishoMojiRegular.otf') format('opentype'); 
@@ -26,9 +25,9 @@
             margin: 0;
             
             height: 100vh;             
-            overflow-x: hidden; /* Evita movimientos raros hacia los lados */          
+            overflow-x: hidden;          
             
-            /* Estructura GRID para la computadora: Inmune al zoom */
+            /* Estructura Grid en computadoras */
             display: grid;
             grid-template-columns: 1fr auto; 
             align-items: center;
@@ -37,7 +36,7 @@
             padding-right: 40px; 
         }
 
-        /* Contenedor maestro del centro en PC (Título + Fotos) */
+        /* Contenedor central (Logotipo e integrantes) */
         .contenido-principal {
             display: flex;
             flex-direction: column;
@@ -47,15 +46,14 @@
             grid-column: 1; 
         }
         
-        /* === EL LOGO EN IMAGEN GIGANTE (SIN NEÓN) === */
         .logo-titulo {
             height: 230px; 
             object-fit: contain;
             margin-bottom: 5px; 
-            filter: none; /* Sin drop-shadow rosa para tu edición desgastada */
+            filter: none; 
         }
 
-        /* === CONFIGURACIÓN DE LAS LETRAS JAPONESAS (PC - NEÓN REBAJADO) === */
+        /* Configuración de las letras japonesas en PC */
         .texto-vertical-derecha {
             font-family: 'NaishoMoji', 'Arial Black', sans-serif; 
             font-size: 5.5rem;          
@@ -71,7 +69,7 @@
             align-self: center;
         }
 
-        /* Hack que encoge el Kana (バンド) para balancearlo con los Kanjis en PC */
+        /* Ajuste de escala para el Kana en PC */
         .texto-vertical-derecha span {
             display: inline-block;
             transform: scale(0.75);     
@@ -79,7 +77,6 @@
             margin-top: -10px;          
         }
         
-        /* Contenedor de las fotos en PC (Fila horizontal de 4) */
         .banda-container {
             display: flex;
             justify-content: center;
@@ -101,15 +98,13 @@
             transform: scale(1.05); 
         }
 
-        /* Bordes de neón iniciales */
+        /* Colores de bordes iniciales */
         #bocchi { border: 5px solid #ff007f; }
         #kita   { border: 5px solid #ff2a2a; }
         #nijika { border: 5px solid #ffcc00; }
         #ryo    { border: 5px solid #00aaff; }
 
-        /* ====================================================================
-           === HACK PARA CELULARES (BLINDAJE INDESTRUCTIBLE 2X2 Y CENTRADO) ===
-           ==================================================================== */
+        /* === AJUSTES RESPONSIVOS PARA TELÉFONOS === */
         @media (max-width: 900px) { 
             body {
                 display: flex !important; 
@@ -119,9 +114,9 @@
                 padding: 15px !important;
                 padding-right: 15px !important; 
                 
-                /* Mueve todo el cuerpo esos 20px a la izquierda para un centrado absoluto en bloque */
+                /* Centrado del bloque general en teléfonos */
                 transform: translateX(-20px) !important;
-                width: calc(100% + 20px) !important; /* Compensa el movimiento en los bordes */
+                width: calc(100% + 20px) !important; 
             }
 
             .contenido-principal {
@@ -132,17 +127,17 @@
             .logo-titulo {
                 height: 125px; 
                 margin-top: 10px;
-                transform: none !important; /* Limpiamos el movimiento individual porque el body ya centra todo */
+                transform: none !important; 
             }
 
-            /* Forzamos el contenedor a comportarse como una cuadrícula estricta de 2x2 en móviles */
+            /* Estructura de cuadrícula estricta de 2x2 en móviles */
             .banda-container {
                 display: grid !important;
                 grid-template-columns: repeat(2, 1fr) !important; 
-                gap: 12px !important; /* Espacio sutil entre cuadros */
+                gap: 12px !important; 
                 margin-top: 15px !important;
                 width: 100% !important;
-                max-width: 360px !important; /* Estrechamos un poco el bloque general en móvil */
+                max-width: 360px !important; 
             }
 
             .tarjeta-miembro {
@@ -150,29 +145,29 @@
                 box-sizing: border-box;
             }
 
-            /* HACK DE CORTE UNIFORME: Iguala los tamaños automáticamente en móviles sin estirar */
+            /* Ajuste de proporciones e imágenes cuadradas en móviles */
             .tarjeta-miembro img {
                 width: 100% !important;
                 height: auto !important;
-                aspect-ratio: 1 / 1 !important; /* Fuerza a un cuadrado perfecto */
-                object-fit: cover !important;   /* Recorta la imagen limpiamente al centro */
+                aspect-ratio: 1 / 1 !important; 
+                object-fit: cover !important;   
                 border-radius: 5px;
             }
 
-            /* Letras japonesas abajo en horizontal (MÁS GRANDES Y SEPARADAS EN MÓVIL) */
+            /* Configuración horizontal de las letras japonesas en móviles */
             .texto-vertical-derecha {
                 writing-mode: horizontal-tb !important; 
-                font-size: 2.8rem !important;      /* Masivas abajo */
-                letter-spacing: 20px !important;   /* Gran separación horizontal */
-                margin: 25px 0 25px 0 !important;  /* Cojín de espacio arriba y abajo */
+                font-size: 2.8rem !important;      
+                letter-spacing: 20px !important;   
+                margin: 25px 0 25px 0 !important;  
                 grid-column: unset !important; 
                 align-self: center !important;
                 text-shadow: 0 0 10px rgba(255, 251, 0, 0.6) !important;
-                font-weight: 900 !important;       /* Grosor marcado */
+                font-weight: 900 !important;       
             }
 
             .texto-vertical-derecha span {
-                transform: scale(0.85); /* Sutilmente más chico el Kana en horizontal */
+                transform: scale(0.85); 
                 margin-top: 0;
                 display: inline-block;
             }
@@ -181,13 +176,12 @@
 </head>
 <body>
 
-    <!-- Bloque Central -->
     <div class="contenido-principal">
         <img src="KESOKUBANDTITULOFUENTE.PNG" alt="KESSOKU BAND" class="logo-titulo">
         <p>Dale clic a cualquier integrante para escuchar su parte de la canción</p>
 
         <div class="banda-container">
-            <!-- 1. BOCCHI (Corregido a minúsculas exactas) -->
+            <!-- 1. BOCCHI -->
             <div class="tarjeta-miembro" id="bocchi" onclick="controlarAudio('audioBocchi', 'bocchi', '#ff007f')">
                 <img src="bocchi.png" alt="Bocchi" width="200" height="200" style="object-fit: cover; border-radius: 5px;">
                 <audio id="audioBocchi" src="bocchii.mp3"></audio>
@@ -199,7 +193,7 @@
                 <audio id="audioKita" src="seisyun-complex.mp3"></audio>
             </div>
 
-            <!-- 3. NIJIKA (Corregido a MAYÚSCULAS exactas) -->
+            <!-- 3. NIJIKA -->
             <div class="tarjeta-miembro" id="nijika" onclick="controlarAudio('audioNijika', 'nijika', '#ffcc00')">
                 <img src="NIJIKA.PNG" alt="Nijika" width="200" height="200" style="object-fit: cover; border-radius: 5px;">
                 <audio id="audioNijika" src="guitar-lonelines.mp3"></audio>
@@ -213,16 +207,16 @@
         </div>
     </div>
 
-    <!-- Bloque de las Letras Japonesas -->
+    <!-- Letras japonesas del lateral -->
     <div class="texto-vertical-derecha">結束<span>バ</span><span>ン</span><span>ド</span></div>
 
-        <!-- === LÓGICA INTELIGENTE EN JAVASCRIPT INDESTRUCTIBLE === -->
+    <!-- === CONTROLADOR DE REPRODUCCIÓN EN JAVASCRIPT === -->
     <script>
         function controlarAudio(idAudio, idCard, colorNeon) {
             const audioSeleccionado = document.getElementById(idAudio);
             const tarjetaSeleccionada = document.getElementById(idCard);
 
-            // Calibración de volumen independiente para tus audios
+            // Control de volumen independiente por integrante
             if (idCard === 'bocchi') {
                 audioSeleccionado.volume = 1.0;
             } else if (idCard === 'kita') {
@@ -236,28 +230,31 @@
             const todosLosAudios = document.querySelectorAll('audio');
             const todasLasTarjetas = document.querySelectorAll('.tarjeta-miembro');
 
+            // Limpieza del neón al finalizar la reproducción de forma automática
+            audioSeleccionado.addEventListener('ended', () => {
+                tarjetaSeleccionada.style.boxShadow = "none";
+            }, { once: true }); 
+
             if (audioSeleccionado.paused) {
-                // Pausa y reinicia todas las demás canciones al segundo cero
+                // Pausar y resetear todos los audios y neones activos
                 todosLosAudios.forEach(aud => {
                     aud.pause();
                     aud.currentTime = 0; 
                 });
                 todasLasTarjetas.forEach(tar => tar.style.boxShadow = "none");
 
-                // Enciende la seleccionada y pone el neón
+                // Activar audio y neón seleccionado
                 audioSeleccionado.play();
                 tarjetaSeleccionada.style.boxShadow = "0 0 35px " + colorNeon;
 
-                // Apaga el neón automáticamente cuando la canción termine por sí sola
-                audioSeleccionado.addEventListener('ended', () => {
-                    tarjetaSeleccionada.style.boxShadow = "none";
-                }, { once: true }); // 'once: true' hace que el evento se limpie solo al terminar
-
             } else {
-                // Si la vuelves a tocar, se apaga y vuelve al principio
+                // Pausar y resetear al volver a pulsar sobre la tarjeta activa
                 audioSeleccionado.pause();
                 audioSeleccionado.currentTime = 0; 
                 tarjetaSeleccionada.style.boxShadow = "none";
             }
         }
     </script>
+
+</body>
+</html>
